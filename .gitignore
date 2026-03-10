@@ -97,3 +97,13 @@ InitTestScene*.unity*
 
 # Auto-generated scenes by play mode tests
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
+
+#Vuforia zipped tar file package
+/Packages/com.ptc.vuforia.engine-11.4.4.tgz*
+
+# Created by https://www.toptal.com/developers/gitignore/api/unity,macos
+# Edit at https://www.toptal.com/developers/gitignore?templates=unity,macos
+
+### macOS ###
+# General
+.DS_Store
