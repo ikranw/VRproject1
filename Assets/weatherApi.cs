@@ -3,10 +3,13 @@ using UnityEngine.Networking;
 using System.Collections;
 using TMPro;
 
+
 public class WeatherAPI : MonoBehaviour
 {
      public GameObject weatherTextObject;
-    
+     public AudioSource audioSource;
+     public AudioClip birdsTaiwan;
+     public AudioClip rainTaiwan;
     // add your personal API key after APPID= and before &units=
     // current lat and lon are for UC
     string url = "https://api.openweathermap.org/data/2.5/weather?lat=25.0330&lon=121.5654&APPID=67a4704b417e67de8707191d1500b5ff&units=imperial";
@@ -59,12 +62,36 @@ public class WeatherAPI : MonoBehaviour
                 Debug.Log(conditions);
 
                 weatherTextObject.GetComponent<TextMeshPro>().text = "" + easyTempF.ToString() + "°F\n" + conditions;
+
+                UpdateAudio(conditions);
             }
         }
     }
 
+   //when weather changes to stormy or rainy, play rain sound, otherwise play birds
+    void UpdateAudio(string conditions) 
+    {
+        string s = conditions.ToLower();
 
-    // Update is called once per frame
+        if (s.Contains("rain") || s.Contains("storm") ||
+            s.Contains("cloud") || s.Contains("drizzle"))
+        {
+            if (audioSource.clip != rainTaiwan) 
+            {
+                audioSource.clip = rainTaiwan;
+                audioSource.Play();
+            }
+        }
+        else
+        {
+            if (audioSource.clip != birdsTaiwan) 
+            {
+                audioSource.clip = birdsTaiwan;
+                audioSource.Play();
+            }
+        }
+    }
+    
     void Update()
     {
         

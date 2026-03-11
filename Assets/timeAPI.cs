@@ -3,9 +3,11 @@ using UnityEngine.Networking;
 using System.Collections;
 using TMPro;
 
+
 public class TimeAPI : MonoBehaviour
 {
     public GameObject timeTextObject;
+    public Light spotLight;
 
     //api here like weather, but no key needed, just lat and lon
     string url = "https://timeapi.io/api/time/current/coordinate?latitude=25.0330&longitude=121.5654";
@@ -51,7 +53,25 @@ public class TimeAPI : MonoBehaviour
                                      seconds.PadLeft(2,'0');
 
                 timeTextObject.GetComponent<TextMeshPro>().text = timeDisplay;
-            }
+
+                int hourInt = int.Parse(hour);
+                UpdateLight(hourInt);
+
+                }
+        }
+    }
+
+    void UpdateLight(int hour) 
+    {
+        if (hour >= 6 && hour < 18) 
+        {
+                //orange/reddish during the day (#8C3C1E)
+            spotLight.color = new Color(0.549f, 0.235f, 0.118f);
+        } 
+        else 
+        {
+            //blue at night (#000080)
+            spotLight.color = new Color(0f, 0f, 0.502f); 
         }
     }
 
